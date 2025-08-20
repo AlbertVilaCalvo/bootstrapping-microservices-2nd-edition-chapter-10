@@ -85,9 +85,10 @@ async function main() {
 
         const parsedMsg = JSON.parse(msg.content.toString()); // Parse the JSON message.
         
-        await historyCollection.insertOne({ videoId: parsedMsg.video.id }); // Record the "view" in the database.
+        const videoId = parsedMsg.video.id;
+        await historyCollection.insertOne({ videoId }); // Record the "view" in the database.
 
-        console.log("Acknowledging message was handled.");
+        console.log(`Acknowledging message was handled for video with id ${videoId}.`);
 
         messageChannel.ack(msg); // If there is no error, acknowledge the message.
     });
